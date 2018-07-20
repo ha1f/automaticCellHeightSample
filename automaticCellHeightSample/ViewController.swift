@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!
+    let tableView: UITableView = UITableView()
     
     var items: [String] = [
         "aiueo",
@@ -25,7 +25,23 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // setup tableview
+        tableView.register(MainCell.self, forCellReuseIdentifier: "mainCell")
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = UITableViewAutomaticDimension
         tableView.dataSource = self
+        // 下に出る余計な線を消す
+        tableView.tableFooterView = UIView()
+        
+        // layout tableview
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            ])
     }
 }
 
